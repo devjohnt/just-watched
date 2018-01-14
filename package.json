@@ -1,0 +1,25 @@
+{
+  "name": "just-watched",
+  "version": "1.0.0",
+  "description": "What have I watched for how long?",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DarisCalinor/just-watched.git"
+  },
+  "keywords": [
+    "justWatched"
+  ],
+  "author": "DarisCalinor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DarisCalinor/just-watched/issues"
+  },
+  "homepage": "https://github.com/DarisCalinor/just-watched#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
