@@ -1,9 +1,14 @@
-var express =   require("express"),
-    app     =   express();
+var express     =   require("express"),
+    app         =   express(),
+    bodyParser  =   require("body-parser");
+    
+//Config
+app.use(bodyParser.urlencoded({extended: true}));
+app.set("view engine", "ejs");
 
 //Initial route
 app.get("/", function(req,res) {
-    res.send("Welcome to justWatched!");
+    res.render("landing");
 });
 
 //Server starts to listen
