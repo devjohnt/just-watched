@@ -12,6 +12,6 @@ app.get("/", function(req,res) {
 });
 
 //Server starts to listen
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(3000, function(){
   console.log("Daris is listening for justWatched...");
 });
