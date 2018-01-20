@@ -1,0 +1,12 @@
+.menu {
+	padding: 0 5px;
+}
+
+footer {
+	margin-top: 250px;
+}
+
+th, td {
+	border: 1px solid black;
+	padding: 5px;
+}

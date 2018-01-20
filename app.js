@@ -1,38 +1,55 @@
-var express     =   require("express"),
-    app         =   express(),
-    bodyParser  =   require("body-parser"),
-    mongoose    =   require("mongoose");
-    
-//Config
-app.use(bodyParser.urlencoded({extended: true}));
-app.set("view engine", "ejs");
-mongoose.connect("mongodb://localhost:27017", {useMongoClient: true});  //Connect DB
-mongoose.Promise = global.Promise;                                      //Get Mongoose to use the global promise library
+//  =====================================================
+//  KICK-OFF  ===========================================
+//  =====================================================
+var
+	express       = require("express"),
+	app           = express(),
+	port          = process.env.PORT || 3000,
+	bodyParser    = require("body-parser"),
+	mongoose      = require("mongoose"),
+	configDB      = require("./config/database"),
+	passport      = require("passport"),
+	flash         = require("connect-flash"),
+	morgan        = require("morgan"),
+	cookieParser  = require("cookie-parser"),
+	session       = require("express-session");
+	
+//  =====================================================
+//  CONFIGURATION  ======================================
+//  =====================================================
+app.set("view engine", "ejs");                        //Setup template engine to EJS
+app.use(express.static(__dirname + "/public"));       //Setup static design files directory
+app.use(bodyParser.urlencoded({extended: true}));     //Get information from HTML forms
+app.use(morgan('dev'));                               //Log every request to the console
+app.use(cookieParser());                              //Read cookies (needed for auth)
 
-//DB Schemas
-var UserSchema    =   new mongoose.Schema({
-    username:   String,
-    password:   String,
-    email:      String
-});
+mongoose.connect(configDB.url, configDB.options);     //Connect DB
+mongoose.Promise = global.Promise;                    //Get Mongoose to use the global promise library
 
-//DB Models
-var User =   mongoose.model("User", UserSchema);
+app.use(session({
+	secret: "deep-in-the-code",
+	resave: false,
+	saveUninitialized: false
+}));                                                  //Not related to passport package
+app.use(passport.initialize());                       //Start passport package
+app.use(passport.session());                          //Starting a session for passport package?
+require("./config/passport")(passport);               //Passport package configuration
 
-//Initial route
-app.get("/", function(req, res) {
-    res.render("landing");
-});
+app.use(function (req, res, next) {
+	res.locals.currentUser = req.user;
+	next();
+});                                                   //Make req.user obj to reachable for views
 
-app.get("/register", function(req, res) {
-    res.render("register");
-});
+//  =====================================================
+//  ROUTES  =============================================
+//  =====================================================
+var indexRoutes = require("./routes/index");          //Requiring routes
 
-app.get("*", function(req, res) {
-    res.send("No defined route, mate!");
-}); 
+app.use("/", indexRoutes);                            //Use indexRoutes
 
-//Server starts to listen
-app.listen(3000, function(){
-  console.log("Daris is listening for justWatched...");
+//  =====================================================
+//  LAUNCH SERVER  ======================================
+//  =====================================================
+app.listen(port, function(){
+  console.log("Daris is listening for justWatched... IP address is 127.0.0.1:" + port);
 });

@@ -1,0 +1,17 @@
+<% include partials/header %>
+
+<div class="container">
+	<form action="/login" method="POST">
+		<div class="form-group">
+			<label for="username">Username:</label>
+			<input class="form-control" name="username" type="text" placeholder="Enter your username...">
+		</div>
+		<div class="form-group">
+			<label for="password">Your Password:</label>
+			<input class="form-control" name="password" type="password" placeholder="Enter your password...">
+		</div>
+		<button class="btn btn-primary btn-md">Login</button>
+	</form>
+</div>
+
+<% include partials/footer %>
