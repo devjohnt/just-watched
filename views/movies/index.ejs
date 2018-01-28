@@ -1,0 +1,25 @@
+<% include ../partials/header %>
+
+    <div class="container">
+        <h3>Here goes the all movies in DB:</h3>
+        <% movies.forEach(function(movie) { %>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="<%= movie["Poster"] %>" alt="movie-poster">
+                </div>
+                <div class="col-md-8">
+                    <h3>
+                        <%= movie["Title"] %>
+                    </h3>
+                    <h5>
+                        <%= movie["Released"] %> - directed by
+                        <%= movie["Director"] %>
+                    </h5>
+                </div>
+            </div>
+            <br>
+        <% }); %>
+    </div>
+
+<% include ../partials/footer %>

@@ -68,6 +68,7 @@ typings/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+just-watched.code-workspace
 .history
 
 ### Windows ###
@@ -93,3 +94,7 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/node,windows,visualstudiocode
+
+# Start ignore files by Daris Calinor
+# bstorm files
+bstorm/*

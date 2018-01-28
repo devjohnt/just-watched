@@ -1,6 +1,6 @@
-//  =====================================================
-//  KICK-OFF  ===========================================
-//  =====================================================
+//  =====================================================================================
+//  KICK-OFF  ===========================================================================
+//  =====================================================================================
 var
 	express       = require("express"),
 	app           = express(),
@@ -14,9 +14,9 @@ var
 	cookieParser  = require("cookie-parser"),
 	session       = require("express-session");
 	
-//  =====================================================
-//  CONFIGURATION  ======================================
-//  =====================================================
+//  =====================================================================================
+//  CONFIGURATION  ======================================================================
+//  =====================================================================================
 app.set("view engine", "ejs");                        //Setup template engine to EJS
 app.use(express.static(__dirname + "/public"));       //Setup static design files directory
 app.use(bodyParser.urlencoded({extended: true}));     //Get information from HTML forms
@@ -25,6 +25,7 @@ app.use(cookieParser());                              //Read cookies (needed for
 
 mongoose.connect(configDB.url, configDB.options);     //Connect DB
 mongoose.Promise = global.Promise;                    //Get Mongoose to use the global promise library
+mongoose.set('debug', true);                          //Debug mode is open for mongoose
 
 app.use(session({
 	secret: "deep-in-the-code",
@@ -40,16 +41,23 @@ app.use(function (req, res, next) {
 	next();
 });                                                   //Make req.user obj to reachable for views
 
-//  =====================================================
-//  ROUTES  =============================================
-//  =====================================================
-var indexRoutes = require("./routes/index");          //Requiring routes
+//  =====================================================================================
+//  ROUTES  =============================================================================
+//  =====================================================================================
+var
+	indexRoutes  = require("./routes/index"),
+	authRoutes   = require("./routes/auth"),
+	moviesRoutes = require("./routes/movies"),
+	searchRoutes = require("./routes/search");
 
-app.use("/", indexRoutes);                            //Use indexRoutes
+app.use("/", authRoutes);                              //Use authRoutes
+app.use("/movies", moviesRoutes);                      //Use moviesRoutes
+app.use("/search", searchRoutes);                      //Use searchRoutes
+app.use("/", indexRoutes);                             //Use indexRoutes
 
-//  =====================================================
-//  LAUNCH SERVER  ======================================
-//  =====================================================
+//  =====================================================================================
+//  LAUNCH SERVER  ======================================================================
+//  =====================================================================================
 app.listen(port, function(){
   console.log("Daris is listening for justWatched... IP address is 127.0.0.1:" + port);
 });
