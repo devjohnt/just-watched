@@ -4,7 +4,8 @@ var
     router  = express.Router(),
     request = require("request"),
     db      = require("../models"),
-    movies  = require("../middleware/movies");
+    movies  = require("../middleware/movies"),
+    auth    = require("../middleware/auth");
 
 //  === INDEX - LIST ALL MOVIES IN DB  ==================================================
 router.get("/", function (req, res) {
@@ -18,7 +19,7 @@ router.get("/", function (req, res) {
 });
 
 //  ===  CREATE - OMDb API MOVIE ENTRY TO DB  ===========================================
-router.post("/", function (req, res) {
+router.post("/", auth.isLoggedIn, function (req, res) {
     var imdbID = req.body.imdbID;
     var url = "http://www.omdbapi.com/?apikey=3b7193fb&i=" + imdbID;
     request(url, function (error, response, body) {

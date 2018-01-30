@@ -15,10 +15,12 @@ router.post("/register", function (req, res) {
     db.User.register(newUser, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
+            req.flash("error", "Something went wrong with our database!");
             res.redirect("/register");
         }
         passport.authenticate("local")(req, res, function () {
             console.log("New user has registered. User is: ", user);
+            req.flash("success", "Welcome to justWatched!" + user.username);
             res.redirect("/users");
         })
     });
@@ -32,11 +34,14 @@ router.get("/login", function (req, res) {
 router.post("/login", passport.authenticate("local", {
     successRedirect: "/users/",
     failureRedirect: "/login/",
+    successFlash: "Welcome back!",
+    failureFlash: "Invalid username or password."
 }));
 
 //  ===  LOGOUT  ========================================================================
 router.get("/logout", function (req, res) {
     req.logout();
+    req.flash("success", "User successfuly logged out.")
     res.redirect("/");
 });
 

@@ -1,20 +1,21 @@
 <% include ../partials/header %>
+<div class="container">
+	<h2>The List of Registered Users</h2>
 
-<h2>The List of Registered Users</h2>
-
-<table>
-    <tr>
-        <th>User No</th>
-        <th>Username</th>
-        <th>Database ID</th>
-    </tr>
-    <% for(var i = 0; users.length > i; i++) { %>
-    <tr>
-        <td><%= i %></td>
-        <td><%= users[i].username %></td>
-        <td><%= users[i]._id  %></td>
-    </tr>
-    <% }; %>
-</table>
+	<table>
+		<tr>
+			<th>User No</th>
+			<th>Username</th>
+			<th>Database ID</th>
+		</tr>
+		<% for(var i = 0; users.length > i; i++) { %>
+		<tr>
+			<td><%= i %></td>
+			<td><%= users[i].username %></td>
+			<td><%= users[i]._id  %></td>
+		</tr>
+		<% }; %>
+	</table>
+</div>
 
 <% include ../partials/footer %>
