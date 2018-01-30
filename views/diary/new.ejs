@@ -1,0 +1,32 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="<%= data.Poster %>" alt="movie-poster">
+        </div>
+        <div class="col-md-4">
+            <h4>New Movie to Diary</h4>
+            <h2><%= data.Title %></h2>
+                <p><%= data.Year %></p>
+            <form action="/:username/diary" method="POST">
+                <div class="form-group">
+                    <label for="date">I've watched this on...</label>
+                    <input type="date" name="date" id="date">
+                </div>
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="isRewatched" id="isRewatched">
+                            I've watched this movie before.
+                        </label>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="movieId" value="<%= movieId %>">
+                    <input class="btn btn-primary" type="submit" value="Add to Diary">
+                </div>
+            </form>
+        </div>
+    </div>
+
+<% include ../partials/footer %>

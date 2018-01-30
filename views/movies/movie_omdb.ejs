@@ -1,0 +1,42 @@
+<% include ../partials/header %>
+
+<div class="container">
+    <div class=row>
+    </div>
+    <div class="row">
+        <div class="col-md-4" >
+            <img src="<%= data["Poster"] %>" alt="movie-poster">
+        </div>
+        <div class="col-md-8 text-justify" >
+            <h3><%= data["Title"] %></h3>
+            <h5><%= data["Released"] %> - directed by <%= data["Director"] %></h5>
+            <h6><% data["Ratings"].forEach(function(val) { %>
+                <%= val.Source %>: <%= val.Value %> | 
+                <% }); %>
+            </h6>
+            <h6>Runtime: <%= data["Runtime"] %></h6>
+            <p><%= data["Plot"] %></p>
+        </div>
+        <div class="col-md-4" >
+            <% if(movie !== null) { %>
+            <form class="form-inline" action="/:username/diary/new" method="GET">
+                <div class="form-group">
+                    <input type="hidden" name="imdbID" value="<%= data["imdbID"] %>">
+                    <input type="hidden" name="movieId" value="<%= movie["_id"] %>">
+                    <input class="btn btn-primary" type="submit" value="Add to Diary">
+                </div>
+                <div class="form-group">
+                    <input class="btn btn-primary" type="submit" value="Add to Watchlist">
+                </div>
+            </form>
+            <% } else { %>
+            <form action="/movies" method="POST">
+                <input type="hidden" value="<%= data["imdbID"] %>" name="imdbID">
+                <button class="btn btn-primary">Add to DB</button>
+            </form>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

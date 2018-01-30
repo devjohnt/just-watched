@@ -1,11 +1,9 @@
-//  =====================================================================================
-//  ===  AUTHENTICATION ROUTES  =========================================================
-//  =====================================================================================
+//  ===  REQUIRES  ======================================================================
 var
     express = require("express"),
     router = express.Router(),
     passport = require("passport"),
-    User = require("../models/user");
+    db = require("../models");
 
 //  ===  SIGN-UP  =======================================================================
 router.get("/register", function (req, res) {
@@ -13,8 +11,8 @@ router.get("/register", function (req, res) {
 });
 
 router.post("/register", function (req, res) {
-    var newUser = new User({ username: req.body.username });
-    User.register(newUser, req.body.password, function (err, user) {
+    var newUser = new db.User({ username: req.body.username });
+    db.User.register(newUser, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
             res.redirect("/register");
@@ -44,7 +42,7 @@ router.get("/logout", function (req, res) {
 
 //  ===  SHOW USERS  ====================================================================
 router.get("/users", function (req, res) {
-    User.find({}, function (err, users) {
+    db.User.find({}, function (err, users) {
         if (err) {
             console.log("Error mate! ", err)
         } else {
@@ -53,4 +51,5 @@ router.get("/users", function (req, res) {
     });
 });
 
+//  ===  EXPORTS  =======================================================================
 module.exports = router;

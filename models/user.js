@@ -1,25 +1,19 @@
-//  =====================================================================================
-//  ===  USER MODEL  ====================================================================
-//  =====================================================================================
-
-//  ===  KICKOFF  =======================================================================
+//  ===  REQUIRES  ======================================================================
 var
 	mongoose              = require("mongoose"),
-	passportLocalMongoose = require("passport-local-mongoose");
+	passportLocalMongoose = require("passport-local-mongoose"),
+	Diary                 = require("./diary");
 
 //  ===  SCHEMA  ========================================================================
 var userSchema = new mongoose.Schema({
 	username: { type: String },
-	password: { type: String }
-});
+	password: { type: String },
+	email: { type: String },
+	diary: [Diary.schema]
+}, { usePushEach: true });
 
-//  ===  PLUGIN UTILAZATION  ============================================================
+//  ===  PLUGINS  =======================================================================
 userSchema.plugin(passportLocalMongoose, { usernameLowerCase: true });
 
-// //  ===  SETTER FUNCTIONS  ==============================================================
-// function toLower(username) {
-// 	return username.toLowerCase();
-// }
-
-//  ===  EXPORT  ========================================================================
+//  ===  EXPORTS  ========================================================================
 module.exports = mongoose.model("User", userSchema);
