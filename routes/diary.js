@@ -4,6 +4,7 @@ var
     router = express.Router(),
     request = require("request"),
     db = require("../models/");
+    
 
 //  ===  INDEX - LIST ALL MOVIES IN THE DIARY  ==========================================
 router.get("/", function (req, res) {

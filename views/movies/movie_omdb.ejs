@@ -30,7 +30,7 @@
                 </div>
             </form>
             <% } else { %>
-            <form action="/movies" method="POST">
+            <form action="/movies/db-check" method="POST">
                 <input type="hidden" value="<%= data["imdbID"] %>" name="imdbID">
                 <button class="btn btn-primary">Add to DB</button>
             </form>
