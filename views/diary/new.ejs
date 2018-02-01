@@ -9,7 +9,7 @@
             <h4>New Movie to Diary</h4>
             <h2><%= data.Title %></h2>
                 <p><%= data.Year %></p>
-            <form action="/:username/diary" method="POST">
+            <form action="/users/<%= currentUser.username %>/diary" method="POST">
                 <div class="form-group">
                     <label for="date">I've watched this on...</label>
                     <input type="date" name="date" id="date">

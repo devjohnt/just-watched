@@ -18,23 +18,26 @@
             <p><%= data["Plot"] %></p>
         </div>
         <div class="col-md-4" >
-            <% if(movie !== null) { %>
-            <form class="form-inline" action="/:username/diary/new" method="GET">
+
+            <% if(currentUser !== undefined) { %>
+            <form class="form-inline" action="/users/<%= currentUser.username %>/diary/new" method="GET">
                 <div class="form-group">
                     <input type="hidden" name="imdbID" value="<%= data["imdbID"] %>">
                     <input type="hidden" name="movieId" value="<%= movie["_id"] %>">
                     <input class="btn btn-primary" type="submit" value="Add to Diary">
                 </div>
+            </form>
+            <br>
+            <form class="form-inline" action="/<%= currentUser.username %>/watchlist">
                 <div class="form-group">
+                    <input type="hidden" name="imdbID" value="<%= data["imdbID"] %>">
+                    <input type="hidden" name="movieId" value="<%= movie["_id"] %>">
                     <input class="btn btn-primary" type="submit" value="Add to Watchlist">
                 </div>
             </form>
-            <% } else { %>
-            <form action="/movies/db-check" method="POST">
-                <input type="hidden" value="<%= data["imdbID"] %>" name="imdbID">
-                <button class="btn btn-primary">Add to DB</button>
-            </form>
             <% } %>
+            <br>
+            <a class="btn btn-primary" href="/movies">Movies</a>
         </div>
     </div>
 </div>

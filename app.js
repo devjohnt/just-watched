@@ -37,7 +37,7 @@ app.use(function (req, res, next) {
 //  ===  ROUTES  ========================================================================
 app.use("/", require("./routes/auth"));                 // Use Auth Routes
 app.use("/movies", require("./routes/movies"));         // Use Movies Routes
-app.use("/:username/diary", require("./routes/diary")); // Use Diary Routes
+app.use("/users/:username/diary", require("./routes/diary")); // Use Diary Routes
 app.use("/search", require("./routes/search"));         // Use Search Routes
 app.use("/", require("./routes/index"));                // Use Index Routes
 

@@ -32,7 +32,7 @@ router.get("/login", function (req, res) {
 });
 
 router.post("/login", passport.authenticate("local", {
-    successRedirect: "/users/",
+    successRedirect: "/",
     failureRedirect: "/login/",
     successFlash: "Welcome back!",
     failureFlash: "Invalid username or password."
@@ -54,6 +54,11 @@ router.get("/users", function (req, res) {
             res.render("users/users", { users: users, currentUser: req.user });
         };
     });
+});
+
+//  ===  USER HOMEPAGE  =================================================================
+router.get("/users/:username", function (req, res) {
+    res.render("users/home");
 });
 
 //  ===  EXPORTS  =======================================================================

@@ -13,10 +13,6 @@
             <li><%= data["Search"][i]["Type"] %></li>
             <li><img src="<%= data["Search"][i]["Poster"] %>" alt="<%= data["Search"][i]["Title"] %>"></li>
             <a class="btn btn-primary" href="/movies/<%= data["Search"][i]["imdbID"] %>">Go to Movie Page!</a>
-            <form action="/movies/db-check" method="POST">
-                <input type="hidden" value="<%= data["Search"][i]["imdbID"] %>" name="imdbID">
-                <button class="btn btn-primary">Add to DB</button>
-            </form>
         </ul>
     <% }; %>
 </div>

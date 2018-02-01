@@ -8,7 +8,20 @@ var
 
 //  ===  INDEX - LIST ALL MOVIES IN THE DIARY  ==========================================
 router.get("/", function (req, res) {
-    res.render("diary/index");
+    db.User
+        .findOne({'username': 'candovsky'})
+        .populate('diary.movie')
+        .exec(function (err, user) {
+            // Error handling
+            if (err) {
+                console.log(err);
+            }
+            // Send found user info
+            else {
+                res.send(user);
+            }
+        });
+    // res.render("diary/index");
 });
 
 //  ===  NEW - SHOW NEW DIARY ENTRY FORM  ===============================================
@@ -42,7 +55,7 @@ router.post("/", function(req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-                    res.send('OK');
+                    res.redirect("/users/:username/diary");
                 }
             });
         }        

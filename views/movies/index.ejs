@@ -16,15 +16,18 @@
                         <%= movie["Released"] %> - directed by
                         <%= movie["Director"] %>
                     </h5>
+                    <% if (currentUser !== undefined) { %>
+                    <a href="/<%= currentUser.username %>/watchlist/new">
+                        <button class="btn btn-primary">Add to Watchlist</button>
+                    </a>
+                    <a href="/<%= currentUser.username %>/diary/new">
+                        <button class="btn btn-primary">Add to Diary</button>
+                    </a>
+                    <% } else { %>
                     <a href="/movies/<%= movie["imdbID"] %>">
                         <button class="btn btn-primary">Go to Movie Page</button>
                     </a>
-                    <a href="/movies">
-                        <button class="btn btn-primary">Add to Watchlist</button>
-                    </a>
-                    <a href="/movies">
-                        <button class="btn btn-primary">Add to Watched</button>
-                    </a>
+                    <% } %>
                 </div>
             </div>
             <br>
