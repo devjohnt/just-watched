@@ -2,6 +2,7 @@
 
 <div class="container" style="{text-align: center;}">
     <h3>Diary Page of <%= currentUser.username %></h3>
+    
     <table class="table-hover">
         <thead>
             <tr>
@@ -15,15 +16,31 @@
             </tr>
         </thead>
         <tbody>
+            
+            <!-- For every movie! -->
+            <% movies.forEach(function(movie) { %>
             <tr>
-                <td>January</td>
-                <td>15th</td>
-                <td>Wonder Woman</td>
-                <td>2nd June 2017</td>
-                <td>4.5 / 5.0</td>
+                <td><%= movie.watchDate.toLocaleString('en-GB', {month: 'long'}) %></td>
+                <td><%= movie.watchDate.toLocaleString('en-GB', {day: '2-digit'}) %></td>
+                <td><%= movie.movie[0].Title %></td>
+                <td><%= movie.movie[0].Released %></td>
+                <% var ratings = movie.movie[0].Ratings; %>
+                <td>
+                    <% ratings.forEach(function(rating) { %>
+                        <%= rating.Source %>: <%= rating.Value %>
+                    <% }); %>
+                </td>
                 <td>22 likes</td>
-                <td>Rewatched</td>
+                <td>
+                    <% if (movie.isRewatched) { %>
+                        Many times!
+                    <% } else { %>
+                        First Time!
+                    <% }  %>
+                </td>
             </tr>
+            <% }); %>
+
         </tbody>
     </table>
 </div>

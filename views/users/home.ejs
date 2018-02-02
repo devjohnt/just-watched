@@ -1,8 +1,9 @@
 <% include ../partials/header %>
 
 <div class="container" style="text-align: center;">
-    <h1>User Homepage</h1>    
-    <%= currentUser.username %>
+    <h1><%= currentUser.username %> User Homepage</h1>
+    <a class="btn btn-primary" href="<%= currentUser.username %>/diary">Go to Diary Page</a>
+    <a class="btn btn-primary" href="<%= currentUser.username %>/watchlist">Go to Watchlist Page</a>
 </div>
 
 <% include ../partials/footer %>
