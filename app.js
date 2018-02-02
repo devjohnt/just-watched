@@ -1,14 +1,15 @@
 //  ===  REQUIRES  ======================================================================
 var
-	express       = require("express"),
-	app           = express(),
-	port          = process.env.PORT || 3000,
-	bodyParser    = require("body-parser"),
-	passport      = require("passport"),
-	flash         = require("connect-flash"),
-	morgan        = require("morgan"),
-	cookieParser  = require("cookie-parser"),
-	session       = require("express-session");
+	express        = require("express"),
+	app            = express(),
+	port           = process.env.PORT || 3000,
+	bodyParser     = require("body-parser"),
+	passport       = require("passport"),
+	flash          = require("connect-flash"),
+	morgan         = require("morgan"),
+	cookieParser   = require("cookie-parser"),
+	session        = require("express-session"),
+	methodOverride = require("method-override");
 	
 //  ===  CONFIGURATION  =================================================================
 app.set("view engine", "ejs");                     // Setup template engine to EJS
@@ -17,6 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}))   // Get information from HTML 
 app.use(morgan('dev'));                            // Log every request to the console
 app.use(cookieParser());                           // Read cookies (needed for auth)
 app.use(flash());                                  // Use flash messages
+app.use(methodOverride('_method'));                // Enables PUT and DELETE requests
 
 app.use(session({                                  // Not related to passport package
 	secret: "deep-in-the-code",
