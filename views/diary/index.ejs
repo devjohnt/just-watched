@@ -6,6 +6,7 @@
     <table class="table-hover">
         <thead>
             <tr>
+                <th>Year</th>
                 <th>Month</th>
                 <th>Day</th>
                 <th>Movie</th>
@@ -19,13 +20,14 @@
         <tbody>
             
             <!-- For every movie! -->
-            <% movies.forEach(function(diary) { %>
+            <% diary.forEach(function(diaryEntry) { %>
             <tr>
-                <td><%= diary.watchDate.toLocaleString('en-GB', {month: 'long'}) %></td>
-                <td><%= diary.watchDate.toLocaleString('en-GB', {day: '2-digit'}) %></td>
-                <td><%= diary.movie[0].Title %></td>
-                <td><%= diary.movie[0].Released %></td>
-                <% var ratings = diary.movie[0].Ratings; %>
+                <td><%= diaryEntry.watchDate.toLocaleString('en-GB', {year: 'numeric'}) %></td>
+                <td><%= diaryEntry.watchDate.toLocaleString('en-GB', {month: 'long'}) %></td>
+                <td><%= diaryEntry.watchDate.toLocaleString('en-GB', {day: '2-digit'}) %></td>
+                <td><%= diaryEntry.movie[0].Title %></td>
+                <td><%= diaryEntry.movie[0].Released %></td>
+                <% var ratings = diaryEntry.movie[0].Ratings; %>
                 <td>
                     <% ratings.forEach(function(rating) { %>
                         <%= rating.Source %>: <%= rating.Value %>
@@ -33,15 +35,15 @@
                 </td>
                 <td>22 likes</td>
                 <td>
-                    <% if (diary.isRewatched) { %>
+                    <% if (diaryEntry.isRewatched) { %>
                         Many times!
                     <% } else { %>
                         First Time!
                     <% }  %>
                 </td>
                 <td>
-                    <form action="diary/<%= diary._id %>/edit" method="GET">
-                        <input type="hidden" value="<%= diary.movie[0].imdbID %>" name="imdbID">
+                    <form action="diary/<%= diaryEntry._id %>/edit" method="GET">
+                        <input type="hidden" value="<%= diaryEntry.movie[0].imdbID %>" name="imdbID">
                         <input class="btn btn-primary btn-sm" type="submit" value="Edit">
                     </form>
                 </td>

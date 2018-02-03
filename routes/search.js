@@ -2,7 +2,8 @@
 var
     express = require("express"),
     router = express.Router(),
-    request = require("request");
+    request = require("request"),
+    db = require("../models");
 
 //  ===  MOVIE  =========================================================================
 router.get("/", function (req, res) {
