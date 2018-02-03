@@ -41,9 +41,11 @@ router.get("/new", function(req, res) {
 });
 
 //  ===  CREATE - ADD NEW DAIRY ENTRY  ==================================================
-router.post("/", function(req, res) {    
+router.post("/", function(req, res) {
+	if (req.body.isRewatched) {req.body.isRewatched = true;}
 	var diaryEntry = new db.Diary({
 		watchDate: req.body.date,
+		isRewatched: req.body.isRewatched,
 		movie: [],
 	});
 	diaryEntry.movie.push(req.body.movieID);
@@ -108,6 +110,34 @@ router.put("/:id", function(req, res) {
 				// Update success
 				else {
 					req.flash('success', 'Diary entry has been updated.');
+					res.redirect("/users/" + req.user.username + "/diary");
+				}
+			});
+		}
+	});
+});
+
+//  ===  DESTROY - DELETE PARTICULAR DIARY ENTRY  =======================================
+router.delete("/:id", function(req, res) {
+	var diaryEntryID = req.params.id;
+	db.User.findOne({ 'username': req.user.username }, function (err, user) {
+		// Error handling
+		if (err) {
+			console.log(err);
+		}
+		// Reaching out the child => diary
+		else {
+			// Delete child => diary(_id)
+			user.diary.id(diaryEntryID).remove();
+			// Save the parent, save the children
+			user.save(function (err, diaryEntry) {
+				// Error handling
+				if (err) {
+					console.log(err);
+				}
+				// Update success
+				else {
+					req.flash('success', 'Diary entry has been deleted.');
 					res.redirect("/users/" + req.user.username + "/diary");
 				}
 			});

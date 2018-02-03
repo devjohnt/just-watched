@@ -1,7 +1,7 @@
 <% include ../partials/header %>
 
-<div class="container" style="{text-align: center;}">
-    <h3>Diary Page of <%= currentUser.username %></h3>
+<div class="container">
+    <h3 style="text-align: center">Diary Page of <%= currentUser.username %></h3>
     
     <table class="table-hover">
         <thead>
@@ -42,10 +42,15 @@
                     <% }  %>
                 </td>
                 <td>
-                    <form action="diary/<%= diaryEntry._id %>/edit" method="GET">
-                        <input type="hidden" value="<%= diaryEntry.movie[0].imdbID %>" name="imdbID">
-                        <input class="btn btn-primary btn-sm" type="submit" value="Edit">
-                    </form>
+                        <form action="diary/<%= diaryEntry._id %>/edit" method="GET" style="display: inline">
+                            <input type="hidden" value="<%= diaryEntry.movie[0].imdbID %>" name="imdbID">
+                            <input type="hidden" value="<%= diaryEntry %>" name="diary">
+                            <input class="btn btn-primary btn-sm" type="submit" value="Edit">
+                        </form>
+                        <form action="diary/<%= diaryEntry._id %>?_method=DELETE" method="POST" style="display: inline">
+                            <input type="hidden" value="<%= diaryEntry.movie[0].imdbID %>" name="imdbID">
+                            <input class="btn btn-danger btn-sm" type="submit" value="Delete">
+                        </form>
                 </td>
             </tr>
             <% }); %>
